@@ -1,0 +1,141 @@
+##----------------------------------------------------------------------------##
+#                             ratpoisonrc - config                             #
+##----------------------------------------------------------------------------##
+
+###;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+###  Basic Setting
+###;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+unmanage panel
+
+# 起動時のメッセージは表示させない
+startup_message off
+
+# メッセージ表示時間
+msgwait 7
+
+# プレフィクス値を設定
+escape M-z
+
+# カレントディレクトリの設定
+chdir $HOME
+
+# ウィンドウリストにはプログラム名を使う
+defwinname title
+
+# ratpoisonの操作毎に実施
+addhook prefix banish
+addhook key banish
+addhook titlechanged banish
+addhook switchwin banish
+
+
+###;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+###  Visual Setting
+###;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+# 背景画像の設定
+#exec xli -onroot Downloads/ratpoison.png
+exec xsetroot -solid "#1A1A1A" -cursor_name left_ptr
+
+# ratposonプロンプトの文字の色
+set fgcolor Orange
+
+# 画面全体の背景色
+set bgcolor "#1A1A1A"
+
+# フレームのカラー設定
+set fwcolor "#555555"
+set bwcolor "#444444"
+
+# フォント設定
+set font -*-terminus-medium-r-normal-*-14-*-*-*-*-*-*-*
+
+# 画面余白(padding left top right bottom)
+set padding 0 15 0 0
+
+# ウィンドウ枠幅の設定
+set border 1
+
+# ratpoisonプロンプト幅の設定
+set barborder 1
+
+# ratpoisonプロンプト余白
+set barpadding 3 3
+
+# メッセージ/コマンド入力プロンプトの位置設定(nw|w|sw|n|c|s|ne|e|se)
+set bargravity c
+
+# ウィンドウズプロンプトの位置(nw|w|sw|n|c|s|ne|e|se) 
+set wingravity c
+
+# ウィンドウの表示形式設定(row|column)
+set winliststyle column
+
+# ratposonのコンソール入力幅
+set inputwidth 800
+
+
+###;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+###  Key Binding Setting
+###;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+#layouts [ ] [|] [-] [|- [?] [+]
+definekey top M-F5 exec ratpoison -c "echo Layout 1" -c "select -" -c "only" -c "next"
+definekey top M-F6 exec ratpoison -c "echo Layout 2" -c "select -" -c "only" -c "hsplit" -c "next"
+definekey top M-F7 exec ratpoison -c "echo Layout 3" -c "select -" -c "only" -c "vsplit" -c "next"
+definekey top M-F8 exec ratpoison -c "frestore `ratpoison -c 'getenv allframe'`"
+definekey top M-F9 exec ratpoison -c "echo Layout 4" -c "select -" -c "only" -c "hsplit" -c "next" -c "vsplit" -c "next"
+definekey top M-F10 exec ratpoison -c "echo Layout 5" -c "select -" -c "only" -c "vsplit" -c "next" -c "focusright" -c "next" -c "hsplit" -c "next"
+definekey top M-F11 exec ratpoison -c "echo Layout 6" -c "select -" -c "only" -c "vsplit" -c "vsplit" -c "next" -c "focusdown" -c "next" -c "focusdown" -c "next" -c "vsplit" -c "next"
+definekey top M-F12 exec ratpoison -c "echo Layout 7" -c "select -" -c "only" -c "hsplit" -c next -c "vsplit" -c next -c "focusright" -c next -c "vsplit" -c "next"
+
+alias show_all_windows exec $HOME/.ratpoison-config/cmds/show_all_windows.sh
+alias arrange_all_windows exec $HOME/.ratpoison-config/cmds/action_by_all_windows.py
+alias expose exec $HOME/.ratpoison-config/cmds/action_by_all_windows.py fs
+alias gmargeh exec $HOME/.ratpoison-config/cmds/group_action.py
+alias gmoveh exec $HOME/.ratpoison-config/cmds/group_action.py gmove
+alias lockscreen exec gnome-screensaver-command -l
+alias screenshot exec import -silent -window root $HOME/tmp/scrshot-$(date +%Y%m%d%H%M%S).png && ratpoison -c "echo Screenshot saved!"
+alias select_windows exec $HOME/.ratpoison-config/cmds/select_windows.py
+
+bind A arrange_all_windows
+bind E exec emacs
+bind F exec firefox
+bind L exec ratpoison -c "echo shrink" -c "shrink"
+bind V gmoveh
+bind W show_all_windows
+bind a expose
+bind g abort
+bind m menu
+bind o only
+bind q remove
+bind t title
+bind v gmargeh
+bind w select_windows
+bind Print screenshot
+bind period redo
+bind slash undo
+bind C-l lockscreen
+
+# 現在の画面レイアウトを記憶
+bind M-1 exec ratpoison -c "echo setenv fs1" -c "setenv fs1 `ratpoison -c 'fdump'`"
+bind M-2 exec ratpoison -c "echo setenv fs2" -c "setenv fs2 `ratpoison -c 'fdump'`"
+bind M-3 exec ratpoison -c "echo setenv fs3" -c "setenv fs3 `ratpoison -c 'fdump'`"
+
+# 記憶した画面レイアウトを復元
+bind C-1 exec ratpoison -c "echo getenv fs1" -c "frestore `ratpoison -c 'getenv fs1'`"
+bind C-2 exec ratpoison -c "echo getenv fs2" -c "frestore `ratpoison -c 'getenv fs2'`"
+bind C-3 exec ratpoison -c "echo getenv fs3" -c "frestore `ratpoison -c 'getenv fs3'`"
+
+
+###;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+###  Auto Start Service
+###;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+exec conky
+exec emacs
+exec gnome-terminal
+exec xset r rate 200 25
+exec rpws init 4 -k
+exec sleep 10; ratpoison -c "echo Welcome to Ratpoison" -c "select -" -c "only" -c "hsplit" -c "next" -c "exchangeright"

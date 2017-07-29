@@ -1,0 +1,29 @@
+# 更新間隔
+update_interval 0.3
+
+# ちらつきを軽減させる
+double_buffer yes
+
+# フォントの設定
+use_xft yes
+xftfont Bitstream Vera Sans:size=10
+
+# ウィンドウ内の文字はすべて大文字にしない
+uppercase no
+
+# デフォルトの位置
+alignment top_left
+minimum_size 1900 1
+
+draw_shades no
+gap_x 10
+gap_y 0
+
+# カラー変数設定
+color0 a5bf98
+color1 dddddd
+color2 aaaaaa
+color3 ffa500
+
+TEXT
+${color3}${time %Y-%m-%d} ${time %H:%M (%a)}  ${color1}::  ${color0}Disk${color1}: ${fs_used /}/${fs_size /}  ${color2}::  ${color0}Cpu${color1}: $cpu%  ${color2}::  ${color0}Mem${color1}: $memperc%  ${color2}::  ${color0}Swap${color1}: $swapperc%  ${color2}::  ${color0}Load${color1}: $loadavg  ${color2}::  ${color0}Workspace${color1}: ${execi 0.5 ~/.rp_config/workspace.py}  ${color2}::  ${color0}Curframe${color1}: ${execi 0.5 ~/.rp_config/curframe.sh}
