@@ -35,7 +35,7 @@ addhook switchwin banish
 ##;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 # 背景画像の設定
-#exec xli -onroot Downloads/ratpoison.png
+#exec xli -onroot Pictures/invisibl-skratch-piklz.jpg
 exec xsetroot -solid "#1A1A1A" -cursor_name left_ptr
 
 # ratposonプロンプトの文字の色
@@ -49,10 +49,10 @@ set fwcolor "#555555"
 set bwcolor "#444444"
 
 # フォント設定
-set font -*-terminus-medium-r-normal-*-14-*-*-*-*-*-*-*
+set font -*-terminus-medium-r-normal-*-16-*-*-*-*-*-*-*
 
 # 画面余白(padding left top right bottom)
-set padding 0 15 0 0
+set padding 0 22 0 0
 
 # ウィンドウ枠幅の設定
 set border 1
@@ -66,7 +66,7 @@ set barpadding 3 3
 # メッセージ/コマンド入力プロンプトの位置設定(nw|w|sw|n|c|s|ne|e|se)
 set bargravity c
 
-# ウィンドウズプロンプトの位置(nw|w|sw|n|c|s|ne|e|se) 
+# ウィンドウズプロンプトの位置(nw|w|sw|n|c|s|ne|e|se)
 set wingravity c
 
 # ウィンドウの表示形式設定(row|column)
@@ -99,7 +99,9 @@ alias lockscreen exec gnome-screensaver-command -l
 alias screenshot exec import -silent -window root $HOME/tmp/scrshot-$(date +%Y%m%d%H%M%S).png && ratpoison -c "echo Screenshot saved!"
 alias select_windows exec $HOME/.ratpoison-config/cmds/select_windows.py
 
+unbind c
 bind A arrange_all_windows
+bind C exec gnome-terminal
 bind E exec emacs
 bind F exec firefox
 bind L exec ratpoison -c "echo shrink" -c "shrink"
@@ -138,4 +140,7 @@ exec emacs
 exec gnome-terminal
 exec xset r rate 200 25
 exec rpws init 4 -k
+exec dropbox start
+exec sleep 2; ibus engine skk
+exec sleep 4; ~/.xkb/load-xkbmap.sh
 exec sleep 10; ratpoison -c "echo Welcome to Ratpoison" -c "select -" -c "only" -c "hsplit" -c "next" -c "exchangeright"
