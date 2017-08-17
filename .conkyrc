@@ -1,29 +1,42 @@
-# 更新間隔
-update_interval 0.3
+conky.config = {
+    -- デフォルトの位置
+    alignment = 'top_left',
+    gap_x = 10,
+    gap_y = 1,
+    minimum_width = 1900,
+    minimum_height = 1,
+    draw_shades = false,
 
-# ちらつきを軽減させる
-double_buffer yes
+    -- 背景を透過
+    -- own_window = false,
+    -- own_window_class = 'Conky',
+    -- own_window_type = 'normal',
+    -- own_window_transparent = false,
+    -- own_window_argb_visual = true,
+    -- own_window_argb_value = 215,
+    -- own_window_colour = '1a1a1a',
 
-# フォントの設定
-use_xft yes
-xftfont Bitstream Vera Sans:size=10
+    -- フォントの設定
+    use_xft = true,
+    override_utf8_locale = true,
+    font = 'Menlo Powerline:size=13',
 
-# ウィンドウ内の文字はすべて大文字にしない
-uppercase no
+    -- 更新間隔
+    update_interval = 1.0,
 
-# デフォルトの位置
-alignment top_left
-minimum_size 1900 1
+    -- ちらつきを軽減させる
+    double_buffer = true,
 
-draw_shades no
-gap_x 10
-gap_y 0
+    -- ウィンドウ内の文字はすべて大文字にしない
+    uppercase = false,
 
-# カラー変数設定
-color0 a5bf98
-color1 dddddd
-color2 aaaaaa
-color3 ffa500
+    -- カラー変数設定
+    color0 = 'a5bf98',
+    color1 = 'dddddd',
+    color2 = 'aaaaaa',
+    color3 = 'ffa500'
+}
 
-TEXT
-${color3}${time %Y-%m-%d} ${time %H:%M (%a)}  ${color1}::  ${color0}Disk${color1}: ${fs_used /}/${fs_size /}  ${color2}::  ${color0}Cpu${color1}: $cpu%  ${color2}::  ${color0}Mem${color1}: $memperc%  ${color2}::  ${color0}Swap${color1}: $swapperc%  ${color2}::  ${color0}Load${color1}: $loadavg  ${color2}::  ${color0}Workspace${color1}: ${execi 0.5 ~/.rp_config/workspace.py}  ${color2}::  ${color0}Curframe${color1}: ${execi 0.5 ~/.rp_config/curframe.sh}
+conky.text = [[
+${color3}${time %Y-%m-%d} ${time %H:%M (%a)}  ${color1}::  ${color0}Disk${color1}: ${fs_used /} / ${fs_size /}  ${color2}::  ${color0}Cpu${color1}: $cpu%  ${color2}::  ${color0}Mem${color1}: $memperc%  ${color2}::  ${color0}Swap${color1}: $swapperc%  ${color2}::  ${color0}Load${color1}: $loadavg  ${color2}::  ${color0}Battery${color1}: ${battery_percent BAT0}% ${color2}::  ${color0}Workspace${color1}: ${execi 0.5 ~/.ratpoison-config/cmds/workspace.py}  ${color2}::  ${color0}Curframe${color1}: ${execi 0.5 ~/.ratpoison-config/cmds/current_windows.sh}
+]]
