@@ -3,7 +3,7 @@
 
 from os import system
 
-DOTFILES_LIST = ['.Xmodmap', '.Xresources', '.conkyrc', '.ratpoisonrc']
+DOTFILES_LIST = ['.xkb', '.conkyrc', '.ratpoisonrc', '.Xresources']
 
 for dotfile in DOTFILES_LIST:
     system('ln -sf ~/.ratpoison-config/{} ~/.'.format(dotfile))
