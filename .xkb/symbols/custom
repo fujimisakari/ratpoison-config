@@ -1,18 +1,13 @@
 xkb_symbols "thinkpad" {
-  replace key <CAPS> { [ Control_L ] };
-  replace key <RTRN> { [ Control_R ] };
-  replace key <LWIN> { [ Alt_L ] };
-  replace key <PRSC> { [ Alt_R ] };
-  //replace key <LALT> { [ Super_L ] };
-  //replace key <RALT> { [ Super_R ] };
-  replace key <RCTL> { [ Return ] };
-  replace key <AB07> { [ m, M, Return ] };
+  key <CAPS> { [ Control_L ] };
+  key <RTRN> { [ Control_R ] };
+  key <LWIN> { [ Alt_L ] };
+  key <PRSC> { [ Alt_R ] };
+  //key <LALT> { [ Super_L ] };
+  //key <RALT> { [ Super_R ] };
+  key <RCTL> { [ Return ] };
 
   modifier_map Control { Control_L, Control_R, <CAPS> };
   modifier_map Mod1 { <LWIN>, <PRSC> };
-
-  //modifier_map Mod1 { Alt_L, Alt_R, Meta_L, Meta_R };
-  //modifier_map Mod1 { Alt_L, Alt_R, Meta_L, Meta_R };
   //modifier_map Mod4 { Super_L, Super_R };
-  // modifier_map Control { <CAPS>, <RTRN> };
 };
