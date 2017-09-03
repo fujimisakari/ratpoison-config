@@ -12,7 +12,7 @@ unmanage panel
 startup_message off
 
 # メッセージ表示時間
-msgwait 7
+msgwait 3
 
 # プレフィクス値を設定
 escape M-z
@@ -49,7 +49,7 @@ set fwcolor "#555555"
 set bwcolor "#444444"
 
 # フォント設定
-set font -*-terminus-medium-r-normal-*-16-*-*-*-*-*-*-*
+set font "Menlo for Powerline:size=15"
 
 # 画面余白(padding left top right bottom)
 set padding 0 22 0 0
@@ -80,45 +80,43 @@ set inputwidth 800
 ##  Key Binding Setting
 ##;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-#layouts [ ] [|] [-] [|- [?] [+]
-definekey top M-F5 exec ratpoison -c "echo Layout 1" -c "select -" -c "only" -c "next"
-definekey top M-F6 exec ratpoison -c "echo Layout 2" -c "select -" -c "only" -c "hsplit" -c "next"
-definekey top M-F7 exec ratpoison -c "echo Layout 3" -c "select -" -c "only" -c "vsplit" -c "next"
-definekey top M-F8 exec ratpoison -c "frestore `ratpoison -c 'getenv allframe'`"
-definekey top M-F9 exec ratpoison -c "echo Layout 4" -c "select -" -c "only" -c "hsplit" -c "next" -c "vsplit" -c "next"
-definekey top M-F10 exec ratpoison -c "echo Layout 5" -c "select -" -c "only" -c "vsplit" -c "next" -c "focusright" -c "next" -c "hsplit" -c "next"
-definekey top M-F11 exec ratpoison -c "echo Layout 6" -c "select -" -c "only" -c "vsplit" -c "vsplit" -c "next" -c "focusdown" -c "next" -c "focusdown" -c "next" -c "vsplit" -c "next"
-definekey top M-F12 exec ratpoison -c "echo Layout 7" -c "select -" -c "only" -c "hsplit" -c next -c "vsplit" -c next -c "focusright" -c next -c "vsplit" -c "next"
-
 alias show_all_windows exec $HOME/.ratpoison-config/cmds/show_all_windows.sh
 alias arrange_all_windows exec $HOME/.ratpoison-config/cmds/action_by_all_windows.py
 alias expose exec $HOME/.ratpoison-config/cmds/action_by_all_windows.py fs
 alias gmargeh exec $HOME/.ratpoison-config/cmds/group_action.py
 alias gmoveh exec $HOME/.ratpoison-config/cmds/group_action.py gmove
 alias lockscreen exec gnome-screensaver-command -l
-alias screenshot exec import -silent -window root $HOME/tmp/scrshot-$(date +%Y%m%d%H%M%S).png && ratpoison -c "echo Screenshot saved!"
+alias screenshot exec import -silent -window root $HOME/tmp/scrshot-$(date +%Y%m%d%H%M%S).jpg && ratpoison -c "echo Screenshot saved!"
 alias select_windows exec $HOME/.ratpoison-config/cmds/select_windows.py
 
 unbind c
-bind A arrange_all_windows
-bind C exec gnome-terminal
-bind E exec emacs
-bind F exec firefox
-bind L exec ratpoison -c "echo shrink" -c "shrink"
-bind V gmoveh
-bind W show_all_windows
+
+bind C-t exec gnome-terminal
+bind C-e exec emacs
+bind C-f exec firefox
+bind C-s exec slack
+
 bind a expose
+bind A arrange_all_windows
 bind g abort
 bind m menu
+bind L lockscreen
 bind o only
+bind p screenshot
 bind q remove
 bind t title
-bind v gmargeh
+bind v gmoveh
+bind V gmargeh
 bind w select_windows
-bind Print screenshot
+bind W show_all_windows
+bind semicolon exec ratpoison -c "echo shrink" -c "shrink"
+
 bind period redo
 bind slash undo
-bind C-l lockscreen
+
+# ワークスペース移動
+definekey top C-M-bracketleft rpwsp
+definekey top C-M-bracketright rpwsn
 
 # 現在の画面レイアウトを記憶
 bind M-1 exec ratpoison -c "echo setenv fs1" -c "setenv fs1 `ratpoison -c 'fdump'`"
@@ -129,6 +127,37 @@ bind M-3 exec ratpoison -c "echo setenv fs3" -c "setenv fs3 `ratpoison -c 'fdump
 bind C-1 exec ratpoison -c "echo getenv fs1" -c "frestore `ratpoison -c 'getenv fs1'`"
 bind C-2 exec ratpoison -c "echo getenv fs2" -c "frestore `ratpoison -c 'getenv fs2'`"
 bind C-3 exec ratpoison -c "echo getenv fs3" -c "frestore `ratpoison -c 'getenv fs3'`"
+
+# レイアウトショートカット [ ] [|] [-] [|- [?] [+]
+bind M-F1 exec ratpoison -c "echo Layout 1" -c "select -" -c "only" -c "next"
+bind M-F2 exec ratpoison -c "echo Layout 2" -c "select -" -c "only" -c "hsplit" -c "next"
+bind M-F3 exec ratpoison -c "echo Layout 3" -c "select -" -c "only" -c "vsplit" -c "next"
+bind M-F4 exec ratpoison -c "echo Layout 4" -c "select -" -c "only" -c "hsplit" -c "next" -c "vsplit" -c "next"
+bind M-F5 exec ratpoison -c "echo Layout 5" -c "select -" -c "only" -c "vsplit" -c "next" -c "focusright" -c "next" -c "hsplit" -c "next"
+bind M-F6 exec ratpoison -c "echo Layout 6" -c "select -" -c "only" -c "vsplit" -c "vsplit" -c "next" -c "focusdown" -c "next" -c "focusdown" -c "next" -c "vsplit" -c "next"
+bind M-F7 exec ratpoison -c "echo Layout 7" -c "select -" -c "only" -c "hsplit" -c next -c "vsplit" -c next -c "focusright" -c next -c "vsplit" -c "next"
+
+# 輝度
+definekey top C-M-1 exec xrandr --output eDP-1 --brightness 0.1
+definekey top C-M-2 exec xrandr --output eDP-1 --brightness 0.2
+definekey top C-M-3 exec xrandr --output eDP-1 --brightness 0.3
+definekey top C-M-4 exec xrandr --output eDP-1 --brightness 0.4
+definekey top C-M-5 exec xrandr --output eDP-1 --brightness 0.5
+definekey top C-M-6 exec xrandr --output eDP-1 --brightness 0.6
+definekey top C-M-7 exec xrandr --output eDP-1 --brightness 0.7
+definekey top C-M-8 exec xrandr --output eDP-1 --brightness 0.8
+definekey top C-M-9 exec xrandr --output eDP-1 --brightness 0.9
+definekey top C-M-0 exec xrandr --output eDP-1 --brightness 1.0
+#definekey top XF86MonBrightnessUp exec xbacklight -inc 10;
+#definekey top XF86MonBrightnessDown exec xbacklight -dec 10;
+
+# Volume
+definekey top S-XF86AudioRaiseVolume exec ratvolume Master 3%+
+ldefinekey top S-XF86AudioMute exec ratvolume Master 0
+definekey top S-XF86AudioLowerVolume exec ratvolume Master 3%-
+definekey top XF86AudioRaiseVolume exec ratvolume PCM 3%+
+definekey top XF86AudioMute exec ratvolume PCM 0
+definekey top XF86AudioLowerVolume exec ratvolume PCM 3%-
 
 
 ##;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -142,5 +171,5 @@ exec xset r rate 200 25
 exec rpws init 4 -k
 exec dropbox start
 exec sleep 2; ibus engine skk
-exec sleep 4; ~/.xkb/load-xkbmap.sh
-exec sleep 10; ratpoison -c "echo Welcome to Ratpoison" -c "select -" -c "only" -c "hsplit" -c "next" -c "exchangeright"
+exec sleep 3; ~/.xkb/load-xkbmap.sh
+exec sleep 5; ratpoison -c "echo Welcome to Ratpoison" -c "select -" -c "only" -c "hsplit" -c "next" -c "exchangeright"
