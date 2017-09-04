@@ -164,12 +164,27 @@ definekey top XF86AudioLowerVolume exec ratvolume PCM 3%-
 ##  Auto Start Service
 ##;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-exec conky
-exec emacs
-exec gnome-terminal
-exec xset r rate 200 25
 exec rpws init 4 -k
+
+exec conky
+exec xset r rate 200 25
 exec dropbox start
-exec sleep 2; ibus engine skk
-exec sleep 3; ~/.xkb/load-xkbmap.sh
-exec sleep 5; ratpoison -c "echo Welcome to Ratpoison" -c "select -" -c "only" -c "hsplit" -c "next" -c "exchangeright"
+exec ibus engine skk
+exec sleep 2; ~/.xkb/load-xkbmap.sh
+
+# thinkpadのタッチパッドを無効にする
+exec sleep 3; xinput set-prop "SynPS/2 Synaptics TouchPad" --type=int --format=8 "Device Enabled" 0
+
+# thinkpadの中クリックでペースト機能を無効にする
+exec sleep 3; xmodmap -e 'pointer = 1 9 3 4 5 6 7 8 2'
+
+# thinkpadの中クリックのスクロールを有効にする
+exec sleep 3; xinput set-prop "PS/2 Generic Mouse" --type=int --format=8 "Evdev Wheel Emulation Button" 2
+exec sleep 3; xinput set-prop "PS/2 Generic Mouse" --type=int --format=8 "Evdev Wheel Emulation" 1
+
+exec sleep 4; ratpoison -c "echo Welcome to Ratpoison"
+
+#exec emacs
+#exec gnome-terminal
+#exec slack
+#exec sleep 6; ratpoison -c "echo Welcome to Ratpoison" -c "select -" -c "only" -c "hsplit" -c "next" -c "exchangeright"
