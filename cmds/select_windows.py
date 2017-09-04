@@ -5,6 +5,7 @@ from commands import getoutput
 from os import system
 
 ratmenu_cmd = ['ratmenu']
+ratmenu_cmd.append('-font "-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*"')
 ratmenu_cmd.append('-fg "Orange"')
 ratmenu_cmd.append('-bg "#1A1A1A"')
 ratmenu_cmd.append('-align "left"')
