@@ -167,7 +167,7 @@ definekey top XF86AudioLowerVolume exec ratvolume PCM 3%-
 exec rpws init 4 -k
 
 exec conky
-exec xset r rate 200 25
+exec xset r rate 180 25
 exec dropbox start
 exec ibus engine skk
 exec sleep 2; ~/.xkb/load-xkbmap.sh
