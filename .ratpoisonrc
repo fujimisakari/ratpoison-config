@@ -171,6 +171,7 @@ exec xset r rate 180 25
 exec dropbox start
 exec ibus engine skk
 exec sleep 2; ~/.xkb/load-xkbmap.sh
+exec sleep 2; xremap ~/.xremaprc > /dev/null 2>&1 &
 
 # thinkpadのタッチパッドを無効にする
 exec sleep 3; xinput set-prop "SynPS/2 Synaptics TouchPad" --type=int --format=8 "Device Enabled" 0

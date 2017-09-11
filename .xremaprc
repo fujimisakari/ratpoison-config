@@ -1,0 +1,6 @@
+window class_only: 'slack' do
+  remap 'C-b', to: 'Left'
+  remap 'C-f', to: 'Right'
+  remap 'C-m', to: 'Return'
+  remap 'C-k', to: ['Shift-End', 'Ctrl-x']
+end
