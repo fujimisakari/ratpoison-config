@@ -1,0 +1,34 @@
+gtk-key-theme-name = "Emacs"
+#include "/usr/share/themes/Emacs/gtk-2.0-key/gtkrc"
+
+#
+# Bindings for GtkTextView and GtkEntry
+#
+binding "gtk-emacs-text-entry"
+{
+  bind "<ctrl>m" { "activate" () }
+}
+
+#
+# Bindings for GtkTextView
+#
+binding "gtk-emacs-text-view"
+{
+  bind "<ctrl>m" { "activate" () }
+}
+
+#
+# Bindings for GtkTreeView
+#
+binding "gtk-emacs-tree-view"
+{
+  bind "<ctrl>m" { "activate" () }
+}
+
+#
+# Bindings for menus
+#
+binding "gtk-emacs-menu"
+{
+  bind "<ctrl>m" { "activate" () }
+}
